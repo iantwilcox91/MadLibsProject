@@ -1,5 +1,5 @@
 using Nancy;
-// using FriendLetter.Objects;
+using MadLibs.Objects;
 
 namespace MadLibs
 {
@@ -8,8 +8,17 @@ namespace MadLibs
     public HomeModule()
     {
       Get["/"] = _ =>
+      {
+        return View["mainpage.cshtml"];
+      };
 
-      // {return View["hello.cshtml", myLetterVariables];};
+      Get["/madInsults"] = _ => {
+        MadLibVariables myMadLibVariables = new MadLibVariables();
+        myMadLibVariables.SetInsult1(Request.Query["insult1"]);
+        myMadLibVariables.SetInsult2(Request.Query["insult2"]);
+        myMadLibVariables.SetNameMom1(Request.Query["nameMom1"]);
+        return View["madInsults.cshtml", myMadLibVariables];
+      };
     }
   }
 }
